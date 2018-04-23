@@ -1,0 +1,50 @@
+Create a file log4j.properties file in the resources folder of your application.
+
+Importance of Log4j
+
+Log4j is a JavaSW library that specializes in logging. At the time of this writing, its home page is at http://logging.apache.org/log4j/docs/ . The Java library itself is available for download at http://logging.apache.org/site/binindex.cgi . The short manual at http://logging.apache.org/log4j/docs/manual.html does a great job covering many of the standard features of Log4j. At its most basic level, you can think of it as a replacement for System.out.println's in your code. Why is it better than System.out.println's? The reasons are numerous.
+
+To begin with, System.out.println outputs to standard output, which typically is a console window. The output from Log4j can go to the console, but it can also go to an email server, a databaseW table, a log file, or various other destinations.
+
+The levels are hierarchical and are as follows: 
+
+1. TRACE
+2. DEBUG
+3. INFO
+4. WARN
+5. ERROR
+6. FATAL
+
+BasicConfigurator, which gives us a plain vanilla Log4j configuration without requiring any properties to be set.
+A call to the configure() method initializes Log4j, after which we can use the static Logger object in our class (and any other loggers throughout our application).
+
+Initialized logging in a small test application using the BasicConfigurator class. 
+BasicConfigurator.configure()
+
+private static final Logger LOGGER = Logger.getLogger(classname.class);
+LOGGER.info("Logger Name: "+LOGGER.getName());
+LOGGER.warning("Can cause ArrayIndexOutOfBoundsException");
+
+Second way to enable logger in your application is by adding arguments the run configuration
+
+-Dlog4j.debug=true
+
+
+------ADD the below code in the log4j.properties file-------
+
+# This sets the global logging level and specifies the appenders
+log4j.rootLogger=INFO, theConsoleAppender
+
+# settings for the console appender
+log4j.appender.theConsoleAppender=org.apache.log4j.ConsoleAppender
+log4j.appender.theConsoleAppender.layout=org.apache.log4j.PatternLayout
+log4j.appender.theConsoleAppender.layout.ConversionPattern=%-4r [%t] %-5p %c %x - %m%n
+
+
+
+then u can use log4j in your application
+
+and log messages can be defined as
+
+for example
+LOGGER.info("Database Connection is started succesfully");
