@@ -1,4 +1,16 @@
-THere are 3 ways to set the database configuration using jndi
+<--------------Resources for jndi description---------------->
+https://tomcat.apache.org/tomcat-7.0-doc/jndi-resources-howto.html
+
+Web.XML file description in depth
+http://tutorials.jenkov.com/java-servlets/web-xml.html
+
+
+the fields used in the configuration of jndi used in resource tag
+http://commons.apache.org/proper/commons-dbcp/configuration.html
+<______________Resources for jndi description_______________>
+
+
+There are 3 ways to set the database configuration using jndi
 1. Adding Context.xml in the Meta-inf
 2. Adding Resource code in Context.xml
 3. Adding Resource code in Server.xml and linking to the Context.xml
