@@ -40,11 +40,21 @@ log4j.appender.theConsoleAppender=org.apache.log4j.ConsoleAppender
 log4j.appender.theConsoleAppender.layout=org.apache.log4j.PatternLayout
 log4j.appender.theConsoleAppender.layout.ConversionPattern=%-4r [%t] %-5p %c %x - %m%n
 
-
-
 then u can use log4j in your application
 
 and log messages can be defined as
 
 for example
 LOGGER.info("Database Connection is started succesfully");
+
+Appenders used in Logger to Show Information regarding the logs :-
+
+%d{yyyy-MM-dd HH:mm:ss} = Date and time format, refer to SimpleDateFormat JavaDoc.
+%-5p = The logging priority, like DEBUG or ERROR. The -5 is optional, for the pretty print format.
+%c{1} = The logging name we set via getLogger(), refer to log4j PatternLayout guide.
+%L = The line number from where the logging request.
+%m%n = The message to log and line break.
+
+
+Location of log4j.properties should be in the context of the application so that all the appenders and other configuration be linked
+with the logger
