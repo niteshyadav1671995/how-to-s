@@ -103,3 +103,14 @@ Add the resource in the Global Naming Resource of Context.xml
                 global="jdbc/mysqldb"
                 auth="Container"
                 type="javax.sql.DataSource" /> 
+		
+		
+		
+For Accessing myltiple database u need to create multiple resources , each resource will be having different database configuration 
+for example:--
+
+  <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" global="jdbc/userdb" maxActive="100" maxIdle="20" maxWait="10000" minIdle="5" name="jdbc/userdb" password="root" type="javax.sql.DataSource" url="jdbc:mysql://localhost/jndiuserdb" username="root"/>
+   
+   
+   <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" global="jdbc/customerdb" maxActive="100" maxIdle="20" maxWait="10000" minIdle="5" name="jdbc/customerdb" password="root" type="javax.sql.DataSource" url="jdbc:mysql://localhost/jndicustomerdb" username="root"/>
+  
