@@ -1,0 +1,7 @@
+How to use query bulider ?
+How to add multiple databases using jndi ?
+How to mavenization of applet made in swing ?
+How to upload a project at github using command Line ?
+How many ways to upload a project on the server ?
+What is Github is it a repostiory or anything else ?
+What is the difference between @RestController and @Controller ?
