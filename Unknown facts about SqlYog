@@ -1,0 +1,12 @@
+Query Builder
+
+1. By using query builder we can easily create a sql query of desired result.
+2. We can easily drag and drop the tables from the database and create the relationship among them using this feature of sqlyog
+3. The Query Builder TAB is divided into 3 sections:
+    -> 'canvas' (a drawing area)
+    -> GRID area
+    -> (read only) editor area
+    
+4. Tables can arrange them and resize them as you want.
+5.  If some lines occur between two of the tables it is because there are Foreign Keys defined between those tables. The line indicates a SQL JOIN. It is reasonable to think the columns 'related' by defining a Foreign Key should be JOINed. So, SQLyog will propose you that. You can right click on the line and define the properties of the JOIN or delete it if you want.
+6. (from version 6.5) also VIEWs are supported by the Query Builder.
