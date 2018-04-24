@@ -22,11 +22,84 @@ Since the context file is bundled with the WAR file, we need to build and deploy
 The datasource is created by container for the application usage only, so it can’t be used globally. We can’t share the datasource across multiple applications.
 If there is a global datasource (server.xml) defined with same name, the application datasource is ignored.
 
+/**
+
+Code to add in context.xml
+
+<context>
+<Resource auth="Container" driverClassName="com.mysql.jdbc.Driver"
+	global="jdbc/mysqldb" maxActive="100" maxIdle="20" maxWait="10000"
+	minIdle="5" name="jdbc/mysqldb" password="root" type="javax.sql.DataSource"
+	url="jdbc:mysql://localhost/jndiuser" username="root" />
+</context> 
+
+this will be added to the application context and will be used by using the context class of the java.naming 
+
+
+
+	public static java.sql.Connection getConnection() {
+		Connection con = null;
+		Context context;
+		try {
+			context = new InitialContext();
+			DataSource datasource = (DataSource) context.lookup("java:/comp/env/jdbc/mysqldb");
+			logger.info("Datasource Object Created" + datasource);
+			try {
+				con = datasource.getConnection();
+				logger.info("Connection Object Created " + con);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (NamingException e) {
+			logger.error(e.getMessage());
+			e.printStackTrace();
+		}
+		return con;
+	}
+
+java:comp/env
+
+It's an in-memory global hashtable where you can store global variables by name.
+
+The "java:" url scheme causes JNDI to look for a javaURLContextFactory class
+java:comp/env is the node in the JNDI tree where you can find properties for the current Java EE component (a webapp, or an EJB).
+
+Context envContext = (Context)initContext.lookup("java:comp/env");
+allows defining a variable pointing directly to this node. It allows doing
+
+SomeBean s = (SomeBean) envContext.lookup("ejb/someBean");
+DataSource ds = (DataSource) envContext.lookup("jdbc/dataSource");
+*/
+
+
+
+
 2 Way of Configuring
 
 Server context.xml – If there are multiple applications in the server and you want to share DataSource across them, we can define that in the server context.xml file. This file is located in apache-tomcat/conf directory. The scope of server context.xml file is application, so if you define a DataSource connection pool of 100 connections and there are 20 applications then the datasource will be created for each of the application. This will result in 2000 connections that will obviously consume all the database server resources and hurt application performance.
+ 
+ Add this Resource in context.xml of the servers and this will be available to all the application running under the server
+ 
+ <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver"
+	global="jdbc/mysqldb" maxActive="100" maxIdle="20" maxWait="10000"
+	minIdle="5" name="jdbc/mysqldb" password="root" type="javax.sql.DataSource"
+	url="jdbc:mysql://localhost/jndiuser" username="root" />
+
+
 
 3 way of Configuring
 
 server.xml and context.xml – We can define DataSource at global level by defining them in the server.xml GlobalNamingResources element. If we use this approach, then we need to define a ResourceLink from context.xml file of server or application specific. This is the preferred way when you are looking to share a common resource pool across multiple applications running on the server. Regarding resource link, whether to define it at server level context xml file or application level depends on your requirement.
 
+Add the resource in the Global Naming Resource of Server.xml
+ <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver"
+	global="jdbc/mysqldb" maxActive="100" maxIdle="20" maxWait="10000"
+	minIdle="5" name="jdbc/mysqldb" password="root" type="javax.sql.DataSource"
+	url="jdbc:mysql://localhost/jndiuser" username="root" />
+  
+   
+Add the resource in the Global Naming Resource of Context.xml
+    <ResourceLink name="jdbc/mysqldb"
+                global="jdbc/mysqldb"
+                auth="Container"
+                type="javax.sql.DataSource" /> 
