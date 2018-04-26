@@ -1,0 +1,14 @@
+u just need to change the port of the individual server
+
+So That all the required files to run the server will be running on the different ports
+
+For example :-
+Tomcat 7.0
+8080
+8005
+8009
+
+Tomcat 8.0
+8180
+8105
+8109
