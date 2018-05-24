@@ -20,3 +20,28 @@ http://tutorials.jenkov.com/git/index.html
 
 Git Commands :- 
 https://confluence.atlassian.com/bitbucketserver/basic-git-commands-776639767.html
+
+
+Working with git may be a challanging task because using git using commang or gui's comes with some more complexities
+When ever you work with command line their is some different way of working with the repository and the local repository
+When you work with egit plugin of eclipse their will be a different approach 
+This may also cause that ur tested code will be gone forever with the two techniques without any question.......huhh...!!
+
+So work like this....
+Their are three faces in git
+1. Working copy
+2. Stagging Server
+3. Remote Server(Github Repository)
+
+Using Command line their can be git bash u can work with....seeing their scinerios over bash is very easy
+But with other plugins their is some time their internal working behind these faces.
+
+Inside GitBash
+git init --- will initiate the current existing folder as the repository.
+git add filename
+git add .
+git commit -a -m "message"
+git status After every command will show you the right path to ....what you need to do
+git push origin master --- this will push the code to the remote server..
+git pull will pull data from the remote repository
+
